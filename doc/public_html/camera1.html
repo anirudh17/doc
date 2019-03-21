@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Track</title>
+    </head>
+    <body>
+    	<h3>Scan The Code</h3>
+        <hr>
+        <canvas></canvas>
+        <hr>
+<ul></ul>
+		<script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="qrcodelib.js"></script>
+        <script type="text/javascript" src="webcodecamjquery.js"></script>
+        <script type="text/javascript">
+            var arg = {
+                resultFunction: function(result) {
+                    // $('body').append($('<li>' + result.format + ': ' + result.code + '</li>'));
+
+                    $.ajax({
+                			type:'POST',
+                			url:'checkCode.php',
+                			data:({SenderId:result.code}),
+                      dataType:'json',
+                			success:function(response){
+                				alert(response.msg);
+                        window.location='recieved.php';
+                			}
+                		});
+                }
+            };
+            $("canvas").WebCodeCamJQuery(arg).data().plugin_WebCodeCamJQuery.play();
+        </script>
+    </body>
+</html>
